@@ -1,0 +1,107 @@
+import java.awt.*;
+import java.util.Scanner;
+
+
+/**
+ * The class Breakdown room
+ */
+public class BreakdownRoom {
+
+    /**
+     *
+     * Main
+     *
+     * @param args  the args.
+     */
+    public static void main(String[] args) {
+
+
+        Scanner sc = new Scanner(System.in);
+
+        VendingMachine Machine1 = new VendingMachine("kikkats",100,3.0);
+        VendingMachine Machine2 = new VendingMachine("Hersheys",150,4.50);
+
+
+
+
+        while (true) {
+
+            System.out.println("\n=======================================================================================");
+            System.out.println("welcome to the Break Room!\n");
+            System.out.println("There are two vending machines here:");
+
+            System.out.println("1. " +Machine1);
+            System.out.println("2. " + Machine2);
+            System.out.println("3.  Quit");
+            System.out.println();
+            System.out.print("Which machine do you want?(e.g. 1)> ");
+            int m = sc.nextInt();
+
+            switch (m) {
+                case 1:
+                    selectedMachine(Machine1, sc);
+                    break;
+                case 2:
+                    selectedMachine(Machine2, sc);
+                    break;
+                case 3:
+                    System.out.println("GoodBye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Please choose again (e.g. 2)> ");
+
+            }
+        }
+
+
+    }
+
+
+    /**
+     *
+     * Selected machine
+     *
+     * @param machine  the machine.
+     * @param sc  the sc.
+     */
+    public static void selectedMachine(VendingMachine machine, Scanner sc) {
+
+        System.out.println("What do you want to do?");
+        System.out.println("1. Enter a coin");
+        System.out.println("2. Coin return");
+        System.out.println("3. Vend an item");
+        System.out.println("4. Quit");
+        System.out.println();
+        System.out.print("Select (e.g 1)> ");
+        int option = sc.nextInt();
+        sc.nextLine();
+
+        switch (option) {
+            case 1:
+                System.out.println("We only accept L-loonies, T-toonies, Q-quarters, D-dimes, N- nikles!");
+                System.out.print("Insert a coin (e.g., L,T,Q,D,N): ");
+                String coin = sc.nextLine();
+                machine.coinInsert(coin);
+                break;
+            case 2:
+                System.out.println("Here is your credit " + machine.getCredit());
+                machine.coinReturn();
+                break;
+            case 3:
+                if(machine.getCredit()>= machine.getPrice()) {
+                    System.out.println("Here is your product");
+                    machine.vendItem();
+                }else {
+                    System.out.println("Credit is not enough!");
+                }
+                break;
+            case 4:
+                System.out.println("Goodbye!");
+                System.exit(0);
+            default:
+                System.out.println("\n\nPlease choose again.\n\n");
+        }
+
+    }
+}
+
